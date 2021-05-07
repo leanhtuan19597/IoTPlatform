@@ -9,12 +9,10 @@ const port = 3000
 app.use(morgan('combined'))
 
 // Template engine
-app.engine('hds', handlebars({
-  extname: '.hds'
-}))
+app.engine('hds', handlebars({extname: '.hds'}))
 
 app.set('view engine', 'hds')
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources','views'))
 
 app.get('/', (req, res) => {
   res.render('home')
