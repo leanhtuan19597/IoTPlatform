@@ -5,10 +5,19 @@ const handlebars = require('express-handlebars')
 const app = express()
 const port = 3000
 
+const route = require('./routes')
+
 app.use(express.static(path.join(__dirname,'public')))
 
+//midlleware engine POST
+app.use(express.urlencoded({
+  extended: true}
+))
+app.use(express.json())
+
+
 //HTTP logger
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 
 // Template engine
 app.engine('hds', handlebars({extname: '.hds'}))
@@ -16,12 +25,7 @@ app.engine('hds', handlebars({extname: '.hds'}))
 app.set('view engine', 'hds')
 app.set('views', path.join(__dirname, 'resources','views'))
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
-app.get('/news', (req, res) => {
-  res.render('news')
-})
+route(app)
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
