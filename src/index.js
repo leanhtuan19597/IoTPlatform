@@ -1,9 +1,12 @@
 const path = require('path');
 const morgan = require('morgan');
 const express = require('express');
+const methodOverride = require('method-override');
 const handlebars = require('express-handlebars');
 const app = express();
 const port = 3000;
+
+app.use(methodOverride('_method'));
 
 //route folder
 const route = require('./routes');
@@ -28,7 +31,15 @@ app.use(express.json());
 // app.use(morgan('combined'))
 
 // Template engine
-app.engine('hds', handlebars({ extname: '.hds' }));
+app.engine(
+    'hds',
+    handlebars({
+        extname: '.hds',
+        helpers: {
+            sum: (a, b) => a + b,
+        },
+    }),
+);
 
 app.set('view engine', 'hds');
 app.set('views', path.join(__dirname, 'resources', 'views'));
