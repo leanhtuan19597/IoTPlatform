@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const sourceController = require('../app/controllers/CourseController');
+const courseController = require('../app/controllers/CourseController');
 
-router.post('/store', sourceController.store);
+router.post('/store', courseController.store);
 
-router.put('/:id', sourceController.update);
+router.put('/:id', courseController.update);
+router.patch('/:id/restore', courseController.restore);
 
-router.delete('/:id', sourceController.destroy);
+router.delete('/:id', courseController.destroy);
+router.delete('/:id/force', courseController.forceDestroy);
 
-router.get('/create', sourceController.create);
-router.get('/:id/edit', sourceController.edit);
-router.get('/:slug', sourceController.show);
+router.get('/create', courseController.create);
+router.get('/:id/edit', courseController.edit);
+router.get('/:slug', courseController.show);
 
 module.exports = router;
