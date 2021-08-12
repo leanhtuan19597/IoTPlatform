@@ -1,1 +1,32 @@
 $red-color: rgb(218, 218, 236);
+// Colors
+$brand-primary: #29b5a8;
+$brand-secondary: #ff8300;
+$gray: #6b7381;
+$gray-light: lighten($gray, 15%);
+$gray-lighter: lighten($gray, 30%);
+
+// Button Colors
+$btn-default-color: $gray;
+$btn-default-bg: $gray-lighter;
+
+// Toggle Sizes
+$toggle-default-size: 1.5rem;
+$toggle-default-label-width: 4rem;
+$toggle-default-font-size: 0.75rem;
+
+// Colors
+$brand-primary: #29b5a8;
+$brand-secondary: #ff8300;
+$gray: #6b7381;
+$gray-light: lighten($gray, 15%);
+$gray-lighter: lighten($gray, 30%);
+
+// Button Colors
+$btn-default-color: $gray;
+$btn-default-bg: $gray-lighter;
+
+// Toggle Sizes
+$toggle-default-size: 1.5rem;
+$toggle-default-label-width: 4rem;
+$toggle-default-font-size: 0.75rem;
