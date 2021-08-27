@@ -56,7 +56,7 @@ class CourseController {
             .then(() => res.redirect('back'))
             .catch(next);
     }
-
+    // xóa vĩnh viễn
     forceDestroy(req, res, next) {
         Course.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('back'))

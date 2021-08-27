@@ -1,8 +1,7 @@
 <div class="mt-4">
     <div>
-      <h3>Quản lí tài khoản</h3>
-      <a href="/user/trash-user">Thùng rác ({{deletedCount}})</a>
-      <a href="/user/signin">Thêm tài khoản</a>
+      <h3>Khoá học của tôi</h3>
+      <a href="/user/show">Danh sách tài khoản</a>
     </div>
     <table class="table mt-4" >
     <thead>
@@ -21,14 +20,15 @@
             <td>{{this.password}}</td>
             <td>{{this.email}}</td>
             <td>
-                <a href="/user/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-                <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-user-modal">Xoá</a>
+                <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-user-modal">Xoá vĩnh viễn</a>
             </td>
         </tr>
         {{else}}
         <tr>
           <td colspan="5" class="text-center">
-            Bạn chưa tài khoản nào học nào. <a href="/user/signin">Đăng ký</a>
+            Thùng rác
+            <a href="/user/show">Danh sách tài khoản</a>
           </td>
 
         </tr>
@@ -48,10 +48,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Bạn có chắc chắn muốn xoá tài khoản này?</p>
+        <p>Hành động này không thể khôi phục. Bạn vẫn muốn xoá tài khoản này học này?</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-user" type="button" class="btn btn-danger">Xoá bỏ</button>
+        <button id="btn-delete-user" type="button" class="btn btn-danger">Xoá vĩnh viễn</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
       </div>
     </div>
@@ -60,21 +60,37 @@
 
 {{!-- DELETE HIDDEN FORM --}}
 <form name="delete-user-form" method="POST"></form>
+<form name="restore-user-form" method="POST"></form>
+
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var userId
     var deleteForm = document.forms['delete-user-form']
+    var restoreForm = document.forms['restore-user-form']
     var btnDeleteUser = document.getElementById('btn-delete-user')
+    var restoreBtn = $('.btn-restore')
+
+
     // when dialog confirm clicked
     $('#delete-user-modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         userId = button.data('id')
     })
   
-    // when delete user btn clicked
+    // when delete course btn clicked
     btnDeleteUser.onclick = function(){
-        deleteForm.action = '/user/' + userId + '?_method=DELETE'
+        deleteForm.action = '/user/' + userId + '/force?_method=DELETE'
         deleteForm.submit()
     }
+
+    // restore btn click
+    restoreBtn.click(function(e){
+        e.preventDefault()
+        var userId = $(this).data('id')
+        restoreForm.action = '/user/' + userId + '/restore?_method=PATCH'
+        restoreForm.submit()
+    })
   })
 </script>

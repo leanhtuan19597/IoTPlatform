@@ -10,6 +10,7 @@ class SiteController {
         //         res.status(400).json({ error: 'ERROR!!!'})
         //     }
         // })
+        // res.render('home');
         Course.find({})
             .then((course) => {
                 res.render('home', {
@@ -17,7 +18,6 @@ class SiteController {
                 });
             })
             .catch(next);
-        res.render('home');
     }
 
     // [GET] / search
